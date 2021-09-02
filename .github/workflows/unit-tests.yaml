@@ -26,4 +26,4 @@ jobs:
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
         source $HOME/.poetry/env
         poetry install
-        cd netopsio; ./manage.py test
+        cd netopsio; poetry run ./manage.py test; cd -
