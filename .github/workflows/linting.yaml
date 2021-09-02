@@ -21,15 +21,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Poetry
+    - name: Install Poetry, Install Dependencies, and Execute Linters
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
         source $HOME/.poetry/env
-    - name: Install Dependencies
-      run: |
         poetry install
-    - name: Execute Linters
-      run: |
         poetry run black --diff netopsio/
         poetry run pylint netopsio/netopsio/ netopsio/home/
         poetry run flake8 netopsio/ --ignore E501
