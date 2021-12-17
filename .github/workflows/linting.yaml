@@ -47,7 +47,7 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: "Linting: PyLint"
       run: |
-        poetry run pylint netopsio/netopsio/ netopsio/home/
+        poetry run pylint netopsio/netopsio/ netopsio/home/ netopsio/ping
   flake8:
     runs-on: ubuntu-latest
     strategy:
