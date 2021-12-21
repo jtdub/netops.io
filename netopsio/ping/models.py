@@ -1,3 +1,11 @@
+"""Ping App Models."""
+
 from django.db import models
 
-# Create your models here.
+
+class PingRequest(models.Model):
+    """Ping Requests Logging Model."""
+
+    date = models.DateTimeField(auto_now_add=True)
+    ip = models.CharField(max_length=255)
+    result = models.TextField()
