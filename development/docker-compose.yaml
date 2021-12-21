@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  db:
+    image: "mariadb:latest"
+    env_file: "creds.env"
+  redis:
+    image: "redis:latest"
+  netops-worker:
+    build:
+      context: ../
+      dockerfile: ./development/Dockerfile
+    volumes:
+    - ../netopsio:/opt/netopsio
+    depends_on:
+    - "db"
+    - "redis"
+    links:
+    - "db"
+    - "redis"
+    command: ["celery", "-A", "netopsio", "worker", "-l", "INFO"]
+  netops-frontend:
+    build:
+      context: ../
+      dockerfile: ./development/Dockerfile
+    env_file: "creds.env"
+    ports:
+    - "80:8000"
+    volumes:
+    - ../netopsio:/opt/netopsio
+    depends_on:
+    - "db"
+    links:
+    - "db"
+    - "netops-worker"
+    restart: "always"
+    command: ["./scripts/delay-start.sh", "./manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
