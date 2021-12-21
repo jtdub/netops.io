@@ -4,6 +4,7 @@ from ping.tasks import ping
 
 
 def index(request):
+    """Ping app index view."""
     if "HTTP_X_FORWARDED_FOR" in request.META:
         host = request.META["HTTP_X_FORWARDED_FOR"]
     else:
