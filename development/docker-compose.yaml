@@ -5,10 +5,11 @@ services:
     env_file: "creds.env"
   redis:
     image: "redis:latest"
-  netops-worker:
+  worker:
     build:
       context: ../
       dockerfile: ./development/Dockerfile
+    env_file: "creds.env"
     volumes:
     - ../netopsio:/opt/netopsio
     depends_on:
@@ -18,7 +19,7 @@ services:
     - "db"
     - "redis"
     command: ["celery", "-A", "netopsio", "worker", "-l", "INFO"]
-  netops-frontend:
+  frontend:
     build:
       context: ../
       dockerfile: ./development/Dockerfile
@@ -31,6 +32,6 @@ services:
     - "db"
     links:
     - "db"
-    - "netops-worker"
+    - "worker"
     restart: "always"
     command: ["./scripts/delay-start.sh", "./manage.py", "runserver", "0.0.0.0:8000", "--insecure"]
