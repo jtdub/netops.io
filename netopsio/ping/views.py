@@ -1,5 +1,6 @@
 """Ping app views."""
 from django.http import HttpResponse
+from django.template import loader
 from ping.tasks import ping
 
 
@@ -10,4 +11,6 @@ def index(request):
     else:
         host = request.META["REMOTE_ADDR"]
     task = ping.delay(host=host)
-    return HttpResponse(f"Ping request for: {host}, Status: {task.status}")
+    template = loader.get_template("ping/base.html")
+    context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
+    return HttpResponse(template.render(context, request))
