@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <p>{{ host }}</p>
-    <p>{{ status }}</p>
-    <a href="/results/{{ id }}">Fetch Task Result</a>
+    <table class="table">
+        <thead>
+            <th scope="col">Status</th>
+            <th scope="col">Host</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ status }}</td>
+                <td><a href="/results/{{ id }}/">{{ host }}</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 {% endblock %}
