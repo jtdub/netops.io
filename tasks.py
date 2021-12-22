@@ -192,3 +192,16 @@ def migrate(context, container="app"):
     """Perform migrate operation in Django."""
     command = "python manage.py migrate"
     docker_compose(context, f"exec {container} {command}", pty=True)
+
+
+@task
+def shell(context, container="app"):
+    """Enter the Django Shell."""
+    command = "python manage.py shell"
+    docker_compose(context, f"exec {container} {command}", pty=True)
+
+
+@task
+def logs(context, container="app"):
+    """Enter the Django Shell."""
+    docker_compose(context, f"logs {container}", pty=True)

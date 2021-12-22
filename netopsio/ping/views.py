@@ -2,6 +2,9 @@
 from django.http import HttpResponse
 from django.template import loader
 from ping.tasks import ping
+from ping.models import PingRequest
+from ping.serializers import PingRequestSerializer
+from rest_framework import viewsets
 
 
 def index(request):
@@ -14,3 +17,10 @@ def index(request):
     template = loader.get_template("ping/base.html")
     context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
     return HttpResponse(template.render(context, request))
+
+
+class PingRequestViewSet(viewsets.ReadOnlyModelViewSet):
+    """Rest API View for 'list' and 'retrieving' PingRequest actions."""
+
+    queryset = PingRequest.objects.all()
+    serializer_class = PingRequestSerializer
