@@ -9,10 +9,14 @@ from rest_framework import viewsets
 
 def index(request):
     """Ping app index view."""
-    if "HTTP_X_FORWARDED_FOR" in request.META:
-        host = request.META["HTTP_X_FORWARDED_FOR"]
-    else:
-        host = request.META["REMOTE_ADDR"]
+    host = request.GET.get("host")
+
+    if host is None:
+        if "HTTP_X_FORWARDED_FOR" in request.META:
+            host = request.META["HTTP_X_FORWARDED_FOR"]
+        else:
+            host = request.META["REMOTE_ADDR"]
+
     task = ping.delay(host=host)
     template = loader.get_template("ping/base.html")
     context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
