@@ -12,9 +12,17 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def result(request, task_id):
+def results(request):
     """Render Task Results."""
+    task_results = TaskResult.objects.all()
+    template = loader.get_template("home/results.html")
+    context = {"title": "Task Results", "results": task_results}
+    return HttpResponse(template.render(context, request))
+
+
+def result_details(request, task_id):
+    """Render Task Detail Results."""
     job = get_object_or_404(TaskResult, task_id=task_id)
-    template = loader.get_template("home/result.html")
-    context = {"title": "Task Result", "job": job}
+    template = loader.get_template("home/result_details.html")
+    context = {"title": "Task Result Details", "job": job}
     return HttpResponse(template.render(context, request))
