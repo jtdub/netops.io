@@ -110,6 +110,13 @@ def tests(context):
 
 
 @task(help={"service": "If specified, only affect this service."})
+def build(context, service=None):
+    """Build NetOps.io and its dependencies."""
+    print("Building NetOps.io.")
+    docker_compose(context, "build", service=service)
+
+
+@task(help={"service": "If specified, only affect this service."})
 def start(context, service=None):
     """Start NetOps.io and its dependencies in detached mode."""
     print("Starting NetOps.io in detached mode...")

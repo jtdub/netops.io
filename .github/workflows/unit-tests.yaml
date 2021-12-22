@@ -23,6 +23,8 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: Execute Unit Tests
       run: |
+        poetry run invoke build
         poetry run invoke start
-        sleep 30
+        sleep 20
+        poetry run invoke migrate
         poetry run invoke unittest
