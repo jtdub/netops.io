@@ -8,9 +8,9 @@ WORKDIR /opt/netopsio
 
 VOLUME /opt/netopsio
 
-COPY ../pyproject.toml .
+COPY pyproject.toml .
 
-COPY ../poetry.lock .
+COPY poetry.lock .
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
