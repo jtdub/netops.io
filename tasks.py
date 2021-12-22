@@ -66,7 +66,7 @@ def docker_compose(context, command, **kwargs):
 @task
 def black(context):
     """Execute Python Black."""
-    context.run("black --check .")
+    context.run("black --check --diff .")
 
 
 @task

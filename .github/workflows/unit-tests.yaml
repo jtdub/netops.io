@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.10"]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -23,4 +23,4 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: Execute Unit Tests
       run: |
-        cd netopsio; poetry run ./manage.py test; cd -
+        poetry run invoke unittests
