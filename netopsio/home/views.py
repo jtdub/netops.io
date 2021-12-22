@@ -1,10 +1,28 @@
 "Home app views."
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import get_object_or_404
+from django_celery_results.models import TaskResult
 
 
 def index(request):
     """Render Home Page."""
     template = loader.get_template("home/base.html")
-    context = {}
+    context = {"title": "Home"}
+    return HttpResponse(template.render(context, request))
+
+
+def results(request):
+    """Render Task Results."""
+    task_results = TaskResult.objects.all()
+    template = loader.get_template("home/results.html")
+    context = {"title": "Task Results", "results": task_results}
+    return HttpResponse(template.render(context, request))
+
+
+def result_details(request, task_id):
+    """Render Task Detail Results."""
+    job = get_object_or_404(TaskResult, task_id=task_id)
+    template = loader.get_template("home/result_details.html")
+    context = {"title": "Task Result Details", "job": job}
     return HttpResponse(template.render(context, request))

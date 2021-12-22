@@ -1,0 +1,45 @@
+version: "3.9"
+services:
+  db:
+    image: "mariadb:latest"
+    env_file: "creds.env"
+  redis:
+    image: "redis:latest"
+  proxy:
+    image: "haproxy:latest"
+    volumes:
+    - ./haproxy:/usr/local/etc/haproxy
+    ports:
+    - "80:80"
+    links:
+    - "app"
+  worker:
+    build:
+      context: ../
+      dockerfile: ./development/Dockerfile
+    env_file: "creds.env"
+    volumes:
+    - ../netopsio:/opt/netopsio
+    depends_on:
+    - "db"
+    - "redis"
+    links:
+    - "db"
+    - "redis"
+    command: ["celery", "-A", "netopsio", "worker", "-l", "INFO"]
+  app:
+    build:
+      context: ../
+      dockerfile: ./development/Dockerfile
+    env_file: "creds.env"
+    ports:
+    - "8000:8000"
+    volumes:
+    - ../netopsio:/opt/netopsio
+    depends_on:
+    - "db"
+    links:
+    - "db"
+    - "worker"
+    restart: "always"
+    command: ["./scripts/delay-start.sh", "./manage.py", "runserver", "0.0.0.0:8000", "--insecure"]

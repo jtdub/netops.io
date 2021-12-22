@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="mb-3">
+        <label for="statusArea" class="form-label"><h3>Job Status</h3></label>
+        <input type="input" class="form-control" id="statusArea" placeholder="{{ job.status }}">
+    </div>
+    <div class="mb-3">
+        <label for="resultTextArea" class="form-label"><h3>{{ title }}</h3></label>
+        <textarea class="form-control" id="resultTextArea" rows="5">{{ job.result }}</textarea>
+    </div>
+</div>
+{% endblock %}

@@ -8,6 +8,11 @@ license = "Apache"
 [tool.poetry.dependencies]
 python = "^3.8"
 Django = "^3.2.7"
+djangorestframework = "^3.13.1"
+celery = {extras = ["redis"], version = "^5.2.1"}
+invoke = "^1.6.0"
+django-celery-results = "^2.2.0"
+mysqlclient = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.8b0"

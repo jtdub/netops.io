@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: hadolint/hadolint-action@v1.6.0
       with:
-        dockerfile: Dockerfile
+        dockerfile: development/Dockerfile
   black:
     runs-on: ubuntu-latest
     strategy:
@@ -30,7 +30,7 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: "Linting: Black"
       run: |
-        poetry run black --diff netopsio/
+        poetry run invoke black
   pylint:
     runs-on: ubuntu-latest
     strategy:
@@ -47,7 +47,7 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: "Linting: PyLint"
       run: |
-        poetry run pylint netopsio/netopsio/ netopsio/home/
+        poetry run invoke pylint
   flake8:
     runs-on: ubuntu-latest
     strategy:
@@ -64,4 +64,4 @@ jobs:
       uses: "networktocode/gh-action-setup-poetry-environment@v2"
     - name: "Linting: Flake8"
       run: |
-        poetry run flake8 netopsio/ --ignore E501
+        poetry run invoke flake8
