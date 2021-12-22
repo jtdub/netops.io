@@ -93,7 +93,7 @@ def linting(context):
 
 
 @task
-def unittest(context, container="frontend"):
+def unittest(context, container="app"):
     """Execute Unit Tests."""
     command = "python manage.py test"
     docker_compose(context, f"exec {container} {command}", pty=True)
@@ -151,7 +151,7 @@ def destroy(context):
 
 
 @task(help={"container": "Name of the container to shell into"})
-def cli(context, container="frontend"):
+def cli(context, container="app"):
     """Launch a bash shell inside the running NetOps.io container."""
     docker_compose(context, f"exec {container} bash", pty=True)
 
@@ -159,10 +159,10 @@ def cli(context, container="frontend"):
 @task(
     help={
         "user": "Name of the superuser to create. (Default: admin)",
-        "container": "Name of the container to run the 'createsuperuser' command on. (Default: frontend)",
+        "container": "Name of the container to run the 'createsuperuser' command on. (Default: app)",
     }
 )
-def createsuperuser(context, user="admin", container="frontend"):
+def createsuperuser(context, user="admin", container="app"):
     """Create a new NetOps.io superuser account (default: "admin"), will prompt for password."""
     command = f"python manage.py createsuperuser --username {user}"
     docker_compose(context, f"exec {container} {command}", pty=True)
@@ -171,10 +171,10 @@ def createsuperuser(context, user="admin", container="frontend"):
 @task(
     help={
         "name": "Use this name for migration file(s). If unspecified, a name will be generated.",
-        "container": "Name of the container to run the 'makemigrations' command on. (Default: frontend)",
+        "container": "Name of the container to run the 'makemigrations' command on. (Default: app)",
     }
 )
-def makemigrations(context, name="", container="frontend"):
+def makemigrations(context, name="", container="app"):
     """Perform makemigrations operation in Django."""
     command = "python manage.py makemigrations"
 
@@ -185,10 +185,10 @@ def makemigrations(context, name="", container="frontend"):
 
 @task(
     help={
-        "container": "Name of the container to run the 'migrate' command on. (Default: frontend)"
+        "container": "Name of the container to run the 'migrate' command on. (Default: app)"
     }
 )
-def migrate(context, container="frontend"):
+def migrate(context, container="app"):
     """Perform migrate operation in Django."""
     command = "python manage.py migrate"
     docker_compose(context, f"exec {container} {command}", pty=True)

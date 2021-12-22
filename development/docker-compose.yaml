@@ -5,6 +5,14 @@ services:
     env_file: "creds.env"
   redis:
     image: "redis:latest"
+  proxy:
+    image: "haproxy:latest"
+    volumes:
+    - ./haproxy:/usr/local/etc/haproxy
+    ports:
+    - "80:80"
+    links:
+    - "app"
   worker:
     build:
       context: ../
@@ -19,13 +27,13 @@ services:
     - "db"
     - "redis"
     command: ["celery", "-A", "netopsio", "worker", "-l", "INFO"]
-  frontend:
+  app:
     build:
       context: ../
       dockerfile: ./development/Dockerfile
     env_file: "creds.env"
     ports:
-    - "80:8000"
+    - "8000:8000"
     volumes:
     - ../netopsio:/opt/netopsio
     depends_on:
