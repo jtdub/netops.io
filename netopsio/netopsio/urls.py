@@ -21,7 +21,7 @@ from ping.views import PingRequestViewSet
 
 
 router = DefaultRouter()
-router.register(r"task-results", TaskResultViewSet)
+router.register(r"tasks", TaskResultViewSet)
 router.register(r"ping-logs", PingRequestViewSet)
 
 

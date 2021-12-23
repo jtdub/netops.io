@@ -10,4 +10,13 @@ class TaskResultSerializer(serializers.ModelSerializer):
         """Task Result Serializer Meta."""
 
         model = TaskResult
-        fields = ["task_id", "task_name", "task_kwargs", "status", "result"]
+        fields = [
+            "task_id",
+            "task_name",
+            "task_kwargs",
+            "status",
+            "result",
+            "date_created",
+            "date_done",
+            "url",
+        ]

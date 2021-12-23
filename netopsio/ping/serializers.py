@@ -11,4 +11,4 @@ class PingRequestSerializer(serializers.ModelSerializer):
         """PingRequest Serializer Meta."""
 
         model = PingRequest
-        fields = ["id", "date", "task_id", "ip", "result"]
+        fields = ["id", "date", "task_id", "ip", "result", "url"]
