@@ -30,8 +30,9 @@ def result_details(request, task_id):
     return HttpResponse(template.render(context, request))
 
 
-class TaskResultViewSet(viewsets.ReadOnlyModelViewSet):
+class TaskResultViewSet(viewsets.ModelViewSet):
     """Rest API View for 'list' and 'retrieving' TaskResult actions."""
 
     queryset = TaskResult.objects.all()
     serializer_class = TaskResultSerializer
+    lookup_field = "task_id"
