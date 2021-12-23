@@ -18,12 +18,13 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 from home.views import TaskResultViewSet
-from ping.views import PingRequestViewSet
+from ping.views import PingRequestViewSet, PingViewSet
 
 
 router = DefaultRouter()
 router.register(r"tasks", TaskResultViewSet)
 router.register(r"ping-logs", PingRequestViewSet)
+router.register(r"ping", PingViewSet, basename="ping")
 
 
 urlpatterns = [
