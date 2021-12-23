@@ -4,14 +4,14 @@
     <table class="table">
         <thead>
             <th scope="col">ID</th>
-            <th scope="col">Task Name</th>
-            <th scope="col">Task Status</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
             <th scope="col">Keyword Arguments</th>
         </thead>
         <tbody>
         {% for task in results %}
             <tr>
-                <th scope="row"><a href="/results/{{ task.task_id }}">{{ task.task_id }}</a></th>
+                <th scope="row"><a href="/tasks/{{ task.task_id }}">{{ task.task_id }}</a></th>
                 <td>{{ task.task_name }}</td>
                 <td>{{ task.status }}</td>
                 <td>{{ task.task_kwargs }}</td>
