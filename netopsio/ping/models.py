@@ -17,5 +17,4 @@ class Ping:
 
     def __init__(self, task_id: str):
         """Initialize the model."""
-        self.pk = task_id
         self.task_id = task_id

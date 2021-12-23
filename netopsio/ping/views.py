@@ -34,7 +34,7 @@ class PingRequestViewSet(viewsets.ReadOnlyModelViewSet):
 class PingViewSet(viewsets.ViewSet):
     """Ping Viewset."""
 
-    def create(self, request):
+    def create(self, request):  # pylint: disable=no-self-use
         """CREATE view."""
         host = request.POST.get("host")
 
