@@ -16,8 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from rest_framework.routers import DefaultRouter
+from home.views import TaskResultViewSet
+from ping.views import PingRequestViewSet, PingViewSet
+
+
+router = DefaultRouter()
+router.register(r"tasks", TaskResultViewSet)
+router.register(r"ping-logs", PingRequestViewSet)
+router.register(r"ping", PingViewSet, basename="ping")
+
+
 urlpatterns = [
     path("", include("home.urls"), name="home"),
     path("ping/", include("ping.urls"), name="ping"),
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls, name="admin"),
+    path("api/v1/", include(router.urls), name="admin-v1"),
 ]

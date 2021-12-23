@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from django_celery_results.models import TaskResult
+from rest_framework import viewsets
+from home.serializers import TaskResultSerializer
 
 
 def index(request):
@@ -12,17 +14,25 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def results(request):
+def tasks(request):
     """Render Task Results."""
     task_results = TaskResult.objects.all()
-    template = loader.get_template("home/results.html")
+    template = loader.get_template("home/tasks.html")
     context = {"title": "Task Results", "results": task_results}
     return HttpResponse(template.render(context, request))
 
 
-def result_details(request, task_id):
+def task_details(request, task_id):
     """Render Task Detail Results."""
     job = get_object_or_404(TaskResult, task_id=task_id)
-    template = loader.get_template("home/result_details.html")
-    context = {"title": "Task Result Details", "job": job}
+    template = loader.get_template("home/task_details.html")
+    context = {"title": "Task Details", "job": job}
     return HttpResponse(template.render(context, request))
+
+
+class TaskResultViewSet(viewsets.ModelViewSet):
+    """Rest API View for 'list' and 'retrieving' TaskResult actions."""
+
+    queryset = TaskResult.objects.all()
+    serializer_class = TaskResultSerializer
+    lookup_field = "task_id"

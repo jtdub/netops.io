@@ -4,5 +4,5 @@ from . import views
 
 app_name = ""  # pylint: disable=invalid-name
 urlpatterns = [
-    path("", views.index, name="ping_index"),
+    path("", views.index, name="ping-index"),
 ]
