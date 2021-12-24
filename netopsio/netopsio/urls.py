@@ -29,7 +29,7 @@ router.register(r"ping-logs", PingRequestViewSet)
 router.register(r"ping", PingViewSet, basename="ping")
 
 
-schema_view = get_schema_view(
+schema_view = get_schema_view(  # pylint: disable=invalid-name
     openapi.Info(
         title="NetOps.io API",
         default_version="v1",
