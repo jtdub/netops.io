@@ -6,6 +6,8 @@ from ping.models import PingRequest, Ping
 from ping.serializers import PingRequestSerializer, PingSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 
 
 def index(request):
@@ -34,9 +36,19 @@ class PingRequestViewSet(viewsets.ReadOnlyModelViewSet):
 class PingViewSet(viewsets.ViewSet):
     """Ping Viewset."""
 
-    def create(self, request):  # pylint: disable=no-self-use
-        """CREATE view."""
-        host = request.POST.get("host")
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                "host": openapi.Schema(
+                    type=openapi.TYPE_STRING, description="Host to ping."
+                ),
+            },
+        )
+    )  # pylint: disable=no-self-use
+    def create(self, request, host=None):
+        """Ping a host."""
+        host = request.data.get("host")
 
         if host is None:
             if "HTTP_X_FORWARDED_FOR" in request.META:

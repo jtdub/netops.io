@@ -30,7 +30,7 @@ def task_details(request, task_id):
     return HttpResponse(template.render(context, request))
 
 
-class TaskResultViewSet(viewsets.ModelViewSet):
+class TaskResultViewSet(viewsets.ReadOnlyModelViewSet):
     """Rest API View for 'list' and 'retrieving' TaskResult actions."""
 
     queryset = TaskResult.objects.all()
