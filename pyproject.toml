@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "netops.io"
-version = "0.1.0"
+version = "0.1.1"
 description = "netops.io web application and rest framework"
 authors = ["James Williams <james.williams@packetgeek.net>"]
 license = "Apache"
