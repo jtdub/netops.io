@@ -25,8 +25,9 @@ def tasks(request):
 def task_details(request, task_id):
     """Render Task Detail Results."""
     job = get_object_or_404(TaskResult, task_id=task_id)
+    result = "\n".join(job.result.strip("\"").split("\\n"))
     template = loader.get_template("home/task_details.html")
-    context = {"title": "Task Details", "job": job}
+    context = {"title": "Task Details", "job": job, "result": result}
     return HttpResponse(template.render(context, request))
 
 
