@@ -93,6 +93,15 @@ def linting(context):
 
 
 @task
+def coverage(context, container="app", percent=80):
+    """Execute Coverage Test."""
+    coverage_cmd = "coverage run --source '.' manage.py test"
+    coverage_report = f"coverage report --fail-under={percent}"
+    docker_compose(context, f"exec {container} {coverage_cmd}", pty=True)
+    docker_compose(context, f"exec {container} {coverage_report}", pty=True)
+
+
+@task
 def unittest(context, container="app"):
     """Execute Unit Tests."""
     command = "python manage.py test"
