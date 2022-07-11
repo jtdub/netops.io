@@ -8,18 +8,12 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from netopsio.utilities import get_ip_address
 
 
 def index(request):
     """Ping app index view."""
-    host = request.GET.get("host")
-
-    if host is None:
-        if "HTTP_X_FORWARDED_FOR" in request.META:
-            host = request.META["HTTP_X_FORWARDED_FOR"]
-        else:
-            host = request.META["REMOTE_ADDR"]
-
+    host = get_ip_address(request)
     task = ping.delay(host=host)
     template = loader.get_template("ping/base.html")
     context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
@@ -48,14 +42,7 @@ class PingViewSet(viewsets.ViewSet):
     )  # pylint: disable=no-self-use
     def create(self, request, host=None):
         """Ping a host."""
-        host = request.data.get("host")
-
-        if host is None:
-            if "HTTP_X_FORWARDED_FOR" in request.META:
-                host = request.META["HTTP_X_FORWARDED_FOR"]
-            else:
-                host = request.META["REMOTE_ADDR"]
-
+        host = get_ip_address(request)
         task = ping.delay(host=host)
         data = Ping(task_id=task.task_id)
         serializer = PingSerializer(data, context={"request": request})

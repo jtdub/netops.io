@@ -1,2 +1,5 @@
+[MASTER]
+ignore=migrations
+
 [MESSAGES CONTROL]
-disable=no-member,too-few-public-methods,too-many-ancestors
+disable=no-member,too-few-public-methods,too-many-ancestors, duplicate-code
