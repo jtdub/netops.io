@@ -1,6 +1,6 @@
 "Ping app urls."
 from django.urls import path
-from . import views
+from ping import views
 
 urlpatterns = [
     path("", views.index, name="ping-index"),

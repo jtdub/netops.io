@@ -28,3 +28,4 @@ jobs:
         sleep 20
         poetry run invoke migrate
         poetry run invoke unittest
+        poetry run invoke coverage
