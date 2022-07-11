@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+<meta id="job_status" data-name="{{ job.status }}">
+
+<script type="text/javascript">
+    let jobStatus = $('#job_status').data();
+
+    if (jobStatus.name != "SUCCESS") {
+        function autoRefreshPage() {
+            window.location = window.location.href;
+        }
+        setInterval('autoRefreshPage()', 2000);
+    }
+</script>
 <div class="container">
     <div class="mb-3">
         <label for="statusArea" class="form-label"><h3>Status</h3></label>
@@ -7,7 +19,16 @@
     </div>
     <div class="mb-3">
         <label for="resultTextArea" class="form-label"><h3>{{ title }}</h3></label>
-        <textarea class="form-control" id="resultTextArea" rows="10">{{ result }}</textarea>
+        {%if job.status != "SUCCESS" %}
+        <div class="spinner-border spinner-grow text-secondary" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <textarea class="form-control" id="resultTextArea" rows="10"></textarea>
+        {% else %}
+        <textarea class="form-control" id="resultTextArea" rows="10">
+        {{ result }}
+        </textarea>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
