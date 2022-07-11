@@ -21,12 +21,15 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from home.views import TaskResultViewSet
 from ping.views import PingRequestViewSet, PingViewSet
+from traceroute.views import TraceRouteRequestViewSet, TraceRouteViewSet
 
 
 router = DefaultRouter()
 router.register(r"tasks", TaskResultViewSet)
 router.register(r"ping-logs", PingRequestViewSet)
 router.register(r"ping", PingViewSet, basename="ping")
+router.register(r"traceroute-logs", TraceRouteRequestViewSet)
+router.register(r"traceroute", TraceRouteViewSet, basename="traceroute")
 
 
 schema_view = get_schema_view(  # pylint: disable=invalid-name
@@ -44,6 +47,7 @@ schema_view = get_schema_view(  # pylint: disable=invalid-name
 urlpatterns = [
     path("", include("home.urls"), name="home"),
     path("ping/", include("ping.urls"), name="ping"),
+    path("traceroute/", include("traceroute.urls"), name="traceroute"),
     path("admin/", admin.site.urls, name="admin"),
     path("api/v1/", include(router.urls), name="admin-v1"),
     re_path(

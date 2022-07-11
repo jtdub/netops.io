@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_celery_results",
     "home",
     "ping",
+    "traceroute",
 ]
 
 MIDDLEWARE = [
