@@ -113,6 +113,7 @@ def tests(context):
     """Execute Linting and Testing."""
     linting(context)
     unittest(context)
+    coverage(context)
 
 
 # Docker Tasks
