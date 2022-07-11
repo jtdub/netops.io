@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "home",
     "ping",
     "traceroute",
+    "nmap",
 ]
 
 MIDDLEWARE = [

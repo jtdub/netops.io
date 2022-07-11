@@ -22,6 +22,7 @@ from drf_yasg import openapi
 from home.views import TaskResultViewSet
 from ping.views import PingRequestViewSet, PingViewSet
 from traceroute.views import TraceRouteRequestViewSet, TraceRouteViewSet
+from nmap.views import NmapRequestViewSet, NmapViewSet
 
 
 router = DefaultRouter()
@@ -30,6 +31,8 @@ router.register(r"ping-logs", PingRequestViewSet)
 router.register(r"ping", PingViewSet, basename="ping")
 router.register(r"traceroute-logs", TraceRouteRequestViewSet)
 router.register(r"traceroute", TraceRouteViewSet, basename="traceroute")
+router.register(r"nmap-logs", NmapRequestViewSet)
+router.register(r"nmap", NmapViewSet, basename="nmap")
 
 
 schema_view = get_schema_view(  # pylint: disable=invalid-name
@@ -48,6 +51,7 @@ urlpatterns = [
     path("", include("home.urls"), name="home"),
     path("ping/", include("ping.urls"), name="ping"),
     path("traceroute/", include("traceroute.urls"), name="traceroute"),
+    path("nmap/", include("nmap.urls"), name="nmap"),
     path("admin/", admin.site.urls, name="admin"),
     path("api/v1/", include(router.urls), name="admin-v1"),
     re_path(
