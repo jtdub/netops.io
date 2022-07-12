@@ -19,7 +19,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from home.views import TaskResultViewSet
+from core.views import TaskResultViewSet
 from ping.views import PingRequestViewSet, PingViewSet
 from traceroute.views import TraceRouteRequestViewSet, TraceRouteViewSet
 from nmap.views import NmapRequestViewSet, NmapViewSet
@@ -48,7 +48,7 @@ schema_view = get_schema_view(  # pylint: disable=invalid-name
 
 
 urlpatterns = [
-    path("", include("home.urls"), name="home"),
+    path("", include("core.urls"), name="core"),
     path("ping/", include("ping.urls"), name="ping"),
     path("traceroute/", include("traceroute.urls"), name="traceroute"),
     path("nmap/", include("nmap.urls"), name="nmap"),

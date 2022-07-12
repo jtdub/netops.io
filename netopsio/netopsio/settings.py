@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_yasg",
     "django_celery_results",
-    "home",
+    "core",
     "ping",
     "traceroute",
     "nmap",

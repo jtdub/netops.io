@@ -1,15 +1,15 @@
-"Home app views."
+"Core app views."
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from django_celery_results.models import TaskResult
 from rest_framework import viewsets
-from home.serializers import TaskResultSerializer
+from core.serializers import TaskResultSerializer
 
 
 def index(request):
-    """Render Home Page."""
-    template = loader.get_template("home/base.html")
+    """Render Core Page."""
+    template = loader.get_template("core/base.html")
     context = {"title": "Home"}
     return HttpResponse(template.render(context, request))
 
@@ -17,7 +17,7 @@ def index(request):
 def tasks(request):
     """Render Task Results."""
     task_results = TaskResult.objects.all()
-    template = loader.get_template("home/tasks.html")
+    template = loader.get_template("core/tasks.html")
     context = {"title": "Task Results", "results": task_results}
     return HttpResponse(template.render(context, request))
 
@@ -26,7 +26,7 @@ def task_details(request, task_id):
     """Render Task Detail Results."""
     job = get_object_or_404(TaskResult, task_id=task_id)
     result = "\n".join(job.result.strip('"').split("\\n"))
-    template = loader.get_template("home/task_details.html")
+    template = loader.get_template("core/task_details.html")
     context = {"title": "Task Details", "job": job, "result": result}
     return HttpResponse(template.render(context, request))
 
