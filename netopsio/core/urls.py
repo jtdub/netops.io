@@ -8,4 +8,6 @@ urlpatterns = [
     path("tasks/", views.tasks_view, name="tasks"),
     path("tasks/<str:task_id>/", views.task_details, name="task-details"),
     path("ping/", views.ping, name="ping"),
+    path("traceroute/", views.traceroute, name="traceroute"),
+    path("nmap/", views.nmap, name="nmap"),
 ]

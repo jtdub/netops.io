@@ -13,3 +13,21 @@ def ping(host: str, count: int = 2) -> str:
     data = RequestLog(ip=host, result=task.stdout.decode("utf-8"), app="ping")
     data.save()
     return task.stdout.decode("utf-8")
+
+
+@shared_task
+def traceroute(host: str) -> str:
+    """Traceroute host worker."""
+    task = subprocess.run(["traceroute", host], capture_output=True, check=True)
+    data = RequestLog(ip=host, result=task.stdout.decode("utf-8"), app="traceroute")
+    data.save()
+    return task.stdout.decode("utf-8")
+
+
+@shared_task
+def nmap(host: str) -> str:
+    """Nmap host worker."""
+    task = subprocess.run(["nmap", "-v", "-A", host], capture_output=True, check=True)
+    data = RequestLog(ip=host, result=task.stdout.decode("utf-8"), app="nmap")
+    data.save()
+    return task.stdout.decode("utf-8")

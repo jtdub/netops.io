@@ -13,8 +13,8 @@ class RequestLog(models.Model):
     app = models.CharField(max_length=255)
 
 
-class Ping:
-    """Ping Model."""
+class TaskModel:
+    """Task Model."""
 
     def __init__(self, task_id: str):
         """Initialize the model."""

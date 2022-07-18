@@ -33,9 +33,27 @@ def task_details(request, task_id):
 
 
 def ping(request):
-    """Ping app index view."""
+    """Ping view."""
     host = get_ip_address(request)
     task = tasks.ping.delay(host=host)
     template = loader.get_template("core/task.html")
     context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
+    return HttpResponse(template.render(context, request))
+
+
+def traceroute(request):
+    """TraceRoute view."""
+    host = get_ip_address(request)
+    task = tasks.traceroute.delay(host=host)
+    template = loader.get_template("core/task.html")
+    context = {"host": host, "status": task.status, "id": task, "title": "Traceroute"}
+    return HttpResponse(template.render(context, request))
+
+
+def nmap(request):
+    """Nmap view."""
+    host = get_ip_address(request)
+    task = tasks.nmap.delay(host=host)
+    template = loader.get_template("core/task.html")
+    context = {"host": host, "status": task.status, "id": task, "title": "Nmap"}
     return HttpResponse(template.render(context, request))
