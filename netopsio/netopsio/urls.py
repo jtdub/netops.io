@@ -15,24 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
-from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from core.views import TaskResultViewSet
-from ping.views import PingRequestViewSet, PingViewSet
-from traceroute.views import TraceRouteRequestViewSet, TraceRouteViewSet
-from nmap.views import NmapRequestViewSet, NmapViewSet
-
-
-router = DefaultRouter()
-router.register(r"tasks", TaskResultViewSet)
-router.register(r"ping-logs", PingRequestViewSet)
-router.register(r"ping", PingViewSet, basename="ping")
-router.register(r"traceroute-logs", TraceRouteRequestViewSet)
-router.register(r"traceroute", TraceRouteViewSet, basename="traceroute")
-router.register(r"nmap-logs", NmapRequestViewSet)
-router.register(r"nmap", NmapViewSet, basename="nmap")
+from core.api.urls import router
 
 
 schema_view = get_schema_view(  # pylint: disable=invalid-name
@@ -49,11 +35,8 @@ schema_view = get_schema_view(  # pylint: disable=invalid-name
 
 urlpatterns = [
     path("", include("core.urls"), name="core"),
-    path("ping/", include("ping.urls"), name="ping"),
-    path("traceroute/", include("traceroute.urls"), name="traceroute"),
-    path("nmap/", include("nmap.urls"), name="nmap"),
     path("admin/", admin.site.urls, name="admin"),
-    path("api/v1/", include(router.urls), name="admin-v1"),
+    path("api/v1/", include(router.urls), name="api-v1"),
     re_path(
         r"^api/docs/(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),

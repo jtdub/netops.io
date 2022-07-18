@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from django_celery_results.models import TaskResult
-from rest_framework import viewsets
-from core.serializers import TaskResultSerializer
+
+from core import tasks
+from netopsio.utilities import get_ip_address
 
 
 def index(request):
@@ -14,7 +15,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def tasks(request):
+def tasks_view(request):
     """Render Task Results."""
     task_results = TaskResult.objects.all()
     template = loader.get_template("core/tasks.html")
@@ -31,9 +32,10 @@ def task_details(request, task_id):
     return HttpResponse(template.render(context, request))
 
 
-class TaskResultViewSet(viewsets.ReadOnlyModelViewSet):
-    """Rest API View for 'list' and 'retrieving' TaskResult actions."""
-
-    queryset = TaskResult.objects.all()
-    serializer_class = TaskResultSerializer
-    lookup_field = "task_id"
+def ping(request):
+    """Ping app index view."""
+    host = get_ip_address(request)
+    task = tasks.ping.delay(host=host)
+    template = loader.get_template("core/task.html")
+    context = {"host": host, "status": task.status, "id": task, "title": "Ping"}
+    return HttpResponse(template.render(context, request))

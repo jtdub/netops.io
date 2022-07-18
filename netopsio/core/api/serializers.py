@@ -1,6 +1,7 @@
-"""Home App and Worker Serializers."""
+"""Core App and Worker Serializers."""
 from rest_framework import serializers
 from django_celery_results.models import TaskResult
+from core import models
 
 
 class TaskResultSerializer(serializers.HyperlinkedModelSerializer):
@@ -24,3 +25,19 @@ class TaskResultSerializer(serializers.HyperlinkedModelSerializer):
             "date_done",
             "url",
         ]
+
+
+class TaskSerializer(serializers.Serializer):  # pylint: disable=abstract-method
+    """Ping Serializer."""
+
+    task_id = serializers.CharField(max_length=512)
+
+
+class RequestLogSerializer(serializers.ModelSerializer):
+    """RequestLog Serializer."""
+
+    class Meta:
+        """RequestLog Serializer Meta."""
+
+        model = models.RequestLog
+        fields = ["id", "date", "task_id", "ip", "app", "result", "url"]
