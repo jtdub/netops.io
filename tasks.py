@@ -62,10 +62,12 @@ def docker_compose(context, command, **kwargs):
 
 # Linting Tasks
 
+
 @task
 def isort(context):
     """Execute Python isort."""
     context.run("isort .")
+
 
 @task
 def black(context):
