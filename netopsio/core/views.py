@@ -1,7 +1,7 @@
 "Core app views."
 from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import get_object_or_404
+from django.template import loader
 from django_celery_results.models import TaskResult
 
 from core import tasks

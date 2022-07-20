@@ -1,5 +1,5 @@
 [MASTER]
-ignore=migrations
+ignore=migrations,tests
 
 [MESSAGES CONTROL]
 disable=no-member,too-few-public-methods,too-many-ancestors, duplicate-code

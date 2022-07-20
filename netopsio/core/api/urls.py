@@ -1,8 +1,8 @@
 """Netops.io core api urls."""
 
 from rest_framework.routers import DefaultRouter
-from core.api import views
 
+from core.api import views
 
 router = DefaultRouter()
 router.register(r"tasks", views.TaskResultViewSet)

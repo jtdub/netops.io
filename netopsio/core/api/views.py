@@ -1,12 +1,13 @@
 """Netops.io core api views."""
 
 from django_celery_results.models import TaskResult
-from rest_framework import viewsets
-from rest_framework.response import Response
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from core.api import serializers
+from rest_framework import viewsets
+from rest_framework.response import Response
+
 from core import models, tasks
+from core.api import serializers
 from netopsio.utilities import get_ip_address
 
 
