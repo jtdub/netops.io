@@ -1,9 +1,9 @@
 """Invoke Linting Task Automation."""
 
 import os
+
 from invoke import Collection
 from invoke import task as invoke_task
-
 
 namespace = Collection("netopsio")
 namespace.configure(
@@ -64,6 +64,12 @@ def docker_compose(context, command, **kwargs):
 
 
 @task
+def isort(context):
+    """Execute Python isort."""
+    context.run("isort .")
+
+
+@task
 def black(context):
     """Execute Python Black."""
     context.run("black --check --diff .")
@@ -78,12 +84,13 @@ def pylint(context):
 @task
 def flake8(context):
     """Execute Python Flake8."""
-    context.run("flake8 netopsio/* --ignore=E501")
+    context.run("flake8 netopsio/* --ignore=E501 --exclude=*/tests/*")
 
 
 @task
 def linting(context):
     """Execute Linting Tasks."""
+    isort(context)
     black(context)
     pylint(context)
     flake8(context)
@@ -95,8 +102,11 @@ def linting(context):
 @task
 def coverage(context, container="app", percent=80):
     """Execute Coverage Test."""
+    omit = ["netopsio/asgi.py", "netopsio/wsgi.py", "*/tests*", "manage.py"]
     coverage_cmd = "coverage run --source '.' manage.py test"
-    coverage_report = f"coverage report --fail-under={percent} -m"
+    coverage_report = (
+        f"coverage report --fail-under={percent} -m --omit={','.join(omit)}"
+    )
     docker_compose(context, f"exec {container} {coverage_cmd}", pty=True)
     docker_compose(context, f"exec {container} {coverage_report}", pty=True)
 
