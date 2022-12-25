@@ -76,7 +76,6 @@ def whois(request):
             }
             return HttpResponse(template.render(context, request))
 
-    else:
-        context = {"form": forms.WhoisForm(), "title": "Whois"}
-        template = loader.get_template("core/whois.html")
-        return HttpResponse(template.render(context, request))
+    context = {"form": forms.WhoisForm(), "title": "Whois"}
+    template = loader.get_template("core/whois.html")
+    return HttpResponse(template.render(context, request))
