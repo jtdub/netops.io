@@ -11,7 +11,7 @@
         <tbody>
         {% for task in results %}
             <tr>
-                <th scope="row"><a href="/tasks/{{ task.task_id }}">{{ task.task_id }}</a></th>
+                <th scope="row"><a href="{% url 'tasks' %}{{ task.task_id }}">{{ task.task_id }}</a></th>
                 <td>{{ task.task_name }}</td>
                 <td>{{ task.status }}</td>
                 <td>{{ task.task_kwargs }}</td>

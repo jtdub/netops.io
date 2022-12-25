@@ -1,8 +1,7 @@
 """Core api tests."""
+from core.api import views
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
-
-from core.api import views
 
 
 class CoreApiTestCase(TestCase):

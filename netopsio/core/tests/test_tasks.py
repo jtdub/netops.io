@@ -1,9 +1,8 @@
 """Core tasks tests."""
 
 
-from django.test import TestCase
-
 from core import tasks
+from django.test import TestCase
 
 
 class TasksTestCase(TestCase):

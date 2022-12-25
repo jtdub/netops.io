@@ -1,7 +1,6 @@
 "Core app tests."
-from django.test import TestCase
-
 from core.models import RequestLog
+from django.test import TestCase
 
 
 class RequestLogTestCase(TestCase):
