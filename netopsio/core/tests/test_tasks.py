@@ -20,3 +20,7 @@ class TasksTestCase(TestCase):
     def test_nmap_task(self):
         nmap = tasks.nmap.delay(host=self.host)
         self.assertIn(nmap.status, ("PENDING", "STARTED", "SUCCESS"))
+
+    def test_whois_task(self):
+        whois = tasks.whois.delay(host=self.host)
+        self.assertIn(whois.status, ("PENDING", "STARTED", "SUCCESS"))
