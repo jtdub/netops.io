@@ -9,7 +9,7 @@
         <tbody>
             <tr>
                 <td>{{ status }}</td>
-                <td><a href="/tasks/{{ id }}/">{{ host }}</a></td>
+                <td><a href="{% url 'tasks' %}{{ id }}/">{{ host }}</a></td>
             </tr>
         </tbody>
     </table>

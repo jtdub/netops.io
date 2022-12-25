@@ -2,7 +2,6 @@
 import subprocess
 
 from celery import shared_task
-
 from core.models import RequestLog
 
 
@@ -31,5 +30,14 @@ def nmap(host: str) -> str:
     """Nmap host worker."""
     task = subprocess.run(["nmap", "-v", "-A", host], capture_output=True, check=True)
     data = RequestLog(ip=host, result=task.stdout.decode("utf-8"), app="nmap")
+    data.save()
+    return task.stdout.decode("utf-8")
+
+
+@shared_task
+def whois(host: str) -> str:
+    """Whois host worker."""
+    task = subprocess.run(["whois", host], capture_output=True, check=True)
+    data = RequestLog(ip=host, result=task.stdout.decode("utf-8"), app="whois")
     data.save()
     return task.stdout.decode("utf-8")

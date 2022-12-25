@@ -1,8 +1,7 @@
 """Core api tests."""
+from core.api import views
 from django.test import TestCase
 from rest_framework.test import APIRequestFactory
-
-from core.api import views
 
 
 class CoreApiTestCase(TestCase):
@@ -36,6 +35,15 @@ class CoreApiTestCase(TestCase):
     def test_nmap_api(self):
         request = self.factory.post(
             "/api/v1/nmap/",
+            self.host,
+            content_type=self.content_type,
+        )
+        response = self.nmap.create(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_whois_api(self):
+        request = self.factory.post(
+            "/api/v1/whois/",
             self.host,
             content_type=self.content_type,
         )

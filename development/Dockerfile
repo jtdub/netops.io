@@ -14,7 +14,7 @@ COPY poetry.lock .
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends nmap iputils-ping traceroute curl mariadb-client libmariadb-dev gcc && \
+    apt-get install -y --no-install-recommends nmap iputils-ping traceroute curl mariadb-client libmariadb-dev gcc whois && \
     apt-get autoremove -y && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/*

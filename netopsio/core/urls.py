@@ -1,7 +1,6 @@
 "Core app urls."
-from django.urls import path
-
 from core import views
+from django.urls import path
 
 urlpatterns = [
     path("", views.index, name="core-index"),
@@ -10,4 +9,5 @@ urlpatterns = [
     path("ping/", views.ping, name="ping"),
     path("traceroute/", views.traceroute, name="traceroute"),
     path("nmap/", views.nmap, name="nmap"),
+    path("whois/", views.whois, name="whois"),
 ]

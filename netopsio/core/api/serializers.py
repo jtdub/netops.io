@@ -1,8 +1,7 @@
 """Core App and Worker Serializers."""
+from core import models
 from django_celery_results.models import TaskResult
 from rest_framework import serializers
-
-from core import models
 
 
 class TaskResultSerializer(serializers.HyperlinkedModelSerializer):

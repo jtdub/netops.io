@@ -1,8 +1,7 @@
 """Register core models in admin panel."""
 
-from django.contrib import admin
-
 from core.models import RequestLog
+from django.contrib import admin
 
 
 class RequestLogAdmin(admin.ModelAdmin):

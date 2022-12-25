@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<form action="{% url 'whois' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+{% endblock %}

@@ -1,10 +1,10 @@
 "Core app views."
+from core import forms, tasks
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
 from django_celery_results.models import TaskResult
 
-from core import tasks
 from netopsio.utilities import get_ip_address
 
 
@@ -56,4 +56,26 @@ def nmap(request):
     task = tasks.nmap.delay(host=host)
     template = loader.get_template("core/task.html")
     context = {"host": host, "status": task.status, "id": task, "title": "Nmap"}
+    return HttpResponse(template.render(context, request))
+
+
+def whois(request):
+    """Whois view."""
+    if request.method == "POST":
+        form = forms.WhoisForm(request.POST)
+
+        if form.is_valid():
+            host = form.cleaned_data["host"]
+            task = tasks.whois.delay(host)
+            template = loader.get_template("core/task.html")
+            context = {
+                "host": host,
+                "status": task.status,
+                "id": task,
+                "title": "Whois",
+            }
+            return HttpResponse(template.render(context, request))
+
+    context = {"form": forms.WhoisForm(), "title": "Whois"}
+    template = loader.get_template("core/whois.html")
     return HttpResponse(template.render(context, request))
